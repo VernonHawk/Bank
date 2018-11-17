@@ -131,10 +131,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Controller.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\utility\TerminationWaiter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Controller.h" />
     <ClInclude Include="src\utility\TerminationWaiter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
