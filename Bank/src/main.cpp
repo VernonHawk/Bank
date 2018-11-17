@@ -1,8 +1,13 @@
 ﻿#include <iostream>
 
-int main()
+// #include "Controller.h"
+
+int main(const int argc, wchar_t* argv[])
 {
-	std::cout << "I'm a Bank!\n";
+	
+#ifndef NDEBUG
+	std::cout << "Server stopped\n";
+#endif
 
 	return 0;
 }
