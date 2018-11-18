@@ -8,6 +8,11 @@ class IRouter
 protected:
 	using request = web::http::http_request;
 
+	static void handleNotAllowed(const request& req)
+	{
+		req.reply(web::http::status_codes::MethodNotAllowed);
+	}
+
 public:
 	IRouter() = default;
 

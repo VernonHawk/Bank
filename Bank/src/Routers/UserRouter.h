@@ -12,9 +12,10 @@ class UserRouter : public IRouter
 	}
 
 	void _handleGet(const request&) const override;
-	void _handlePost(const request&) const override;
-	void _handlePatch(const request&) const override;
-	void _handleDelete(const request&) const override;
+
+	void _handlePost  (const request& req) const override { handleNotAllowed(req); }
+	void _handlePatch (const request& req) const override { handleNotAllowed(req); }
+	void _handleDelete(const request& req) const override { handleNotAllowed(req); }
 };
 
 #endif
