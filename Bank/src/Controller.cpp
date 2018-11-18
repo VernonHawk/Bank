@@ -20,7 +20,7 @@ auto Controller::start() -> Controller&
 	_listener.open().wait();
 
 #ifndef NDEBUG
-	std::wcout << "Server listening for requests at: " << endpoint() << '\n';
+	std::wcout << "Controller listening for requests at: " << endpoint() << '\n';
 #endif
 
 	return *this;
