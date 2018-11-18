@@ -18,7 +18,7 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\utility\TerminationWaiter.cpp">
+    <ClCompile Include="src\Utility\TerminationWaiter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Controller.cpp">
@@ -27,12 +27,15 @@
     <ClCompile Include="src\Routers\UserRouter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\utility\UtilityFunctions.cpp">
+    <ClCompile Include="src\Utility\UtilityFunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Routers\IRouter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\utility\TerminationWaiter.h">
+    <ClInclude Include="src\Utility\TerminationWaiter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Controller.h">
@@ -44,7 +47,7 @@
     <ClInclude Include="src\Routers\UserRouter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\utility\UtilityFunctions.h">
+    <ClInclude Include="src\Utility\UtilityFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -17,15 +17,19 @@ int main(const int argc, wchar_t* argv[])
 			.to_uri();
 
 		util::startServer(uri);
-
-	#ifndef NDEBUG
-		std::cout << "Server stopped\n";
-	#endif
 	}
 	catch (const std::exception& ex)
 	{
-		std::wcerr << "Exception occured: " << ex.what() << '\n';
+		std::cerr << "Exception occured: " << ex.what() << '\n';
 	}
+	catch (...)
+	{
+		std::cerr << "Unexpected exception occured.\n";
+	}
+
+#ifndef NDEBUG
+	std::cout << "Server stopped\n";
+#endif
 
 	return 0;
 }

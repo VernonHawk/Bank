@@ -13,6 +13,11 @@ protected:
 		req.reply(web::http::status_codes::MethodNotAllowed);
 	}
 
+	static void handleInternalError(const request_t& req)
+	{
+		req.reply(web::http::status_codes::InternalError);
+	}
+
 public:
 	using uri_t = web::uri;
 
@@ -23,16 +28,18 @@ public:
 	[[nodiscard]] 
 	auto endpoint(const uri_t& uri) const noexcept { return _endpoint(uri); }
 
-	void handleGet   (const request_t& req) const { _handleGet(req); }
-	void handlePost  (const request_t& req) const { _handlePost(req); }
-	void handlePatch (const request_t& req) const { _handlePatch(req); }
-	void handleDelete(const request_t& req) const { _handleDelete(req); }
+	void handleGet   (const request_t& req) const;
+	void handlePost  (const request_t& req) const;
+	void handlePatch (const request_t& req) const;
+	void handleDelete(const request_t& req) const;
 
+	#pragma region deleted functions
 	IRouter(const IRouter&) = delete;
 	IRouter& operator=(const IRouter&) = delete;
 
 	IRouter(IRouter&&) = delete;
 	IRouter& operator=(IRouter&&) = delete;
+	#pragma endregion 
 
 private:
 	virtual uri_t _endpoint(const uri_t&) const noexcept = 0;

@@ -17,17 +17,16 @@ public:
 
 	auto start() -> Controller&;
 
-#pragma region deleted functions
+	#pragma region deleted functions
 	// We don't want a temporary Router
 	Controller(const IRouter&&, const uri_t&) = delete;
 
-	// Copy and move are not expected
 	Controller(const Controller&) = delete;
 	Controller& operator=(const Controller&) = delete;
 
 	Controller(Controller&&) = delete;
 	Controller& operator=(Controller&&) = delete;
-#pragma endregion 
+	#pragma endregion 
 
 private:
 	const IRouter* _router;
