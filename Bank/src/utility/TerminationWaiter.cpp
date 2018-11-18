@@ -3,22 +3,25 @@
 #include <csignal>
 #include <mutex>
 
-std::condition_variable util::TerminationWaiter::_condition;
-
-void util::TerminationWaiter::wait()
+namespace util
 {
-	signal(SIGINT, handleUserInterrupt);
+	std::condition_variable TerminationWaiter::_condition;
 
-	auto mutex = std::mutex {};
-	auto lock  = std::unique_lock<std::mutex> {mutex};
+	void TerminationWaiter::wait()
+	{
+		signal(SIGINT, handleUserInterrupt);
 
-	_condition.wait(lock);
+		auto mutex = std::mutex {};
+		auto lock  = std::unique_lock<std::mutex> {mutex};
 
-	lock.unlock();
-}
+		_condition.wait(lock);
 
-void util::TerminationWaiter::handleUserInterrupt(const int signal)
-{
-	if (signal == SIGINT)
-		_condition.notify_one();
+		lock.unlock();
+	}
+
+	void TerminationWaiter::handleUserInterrupt(const int signal)
+	{
+		if (signal == SIGINT)
+			_condition.notify_one();
+	}
 }
