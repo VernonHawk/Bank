@@ -8,6 +8,7 @@ class IRouter
 protected:
 	using request_t = web::http::http_request;
 
+	#pragma region other handlers
 	static void handleNotAllowed(const request_t& req)
 	{
 		req.reply(web::http::status_codes::MethodNotAllowed);
@@ -17,6 +18,12 @@ protected:
 	{
 		req.reply(web::http::status_codes::InternalError);
 	}
+
+	static void handleInternalError(const request_t& req, const std::exception& ex)
+	{
+		req.reply(web::http::status_codes::InternalError, ex.what());
+	}
+	#pragma endregion 
 
 public:
 	using uri_t = web::uri;
