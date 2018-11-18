@@ -32,5 +32,8 @@
     <ClInclude Include="src\Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Routers\IRouter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -136,6 +136,7 @@
     <ClCompile Include="src\utility\TerminationWaiter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Routers\IRouter.h" />
     <ClInclude Include="src\Controller.h" />
     <ClInclude Include="src\utility\TerminationWaiter.h" />
   </ItemGroup>
