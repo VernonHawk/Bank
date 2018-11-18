@@ -6,7 +6,7 @@
 
 namespace util
 {
-	void startServer(const utility::string_t& uri)
+	void startServer(const Controller::uri_t& uri)
 	{
 		const auto userRouter = UserRouter {};
 		auto userController = Controller {userRouter, uri};

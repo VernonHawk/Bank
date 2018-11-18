@@ -2,7 +2,7 @@
 
 #include <cassert>
 
-Controller::Controller(const IRouter& router, const utility::string_t& uri)
+Controller::Controller(const IRouter& router, const uri_t& uri)
 	: _router {&router}, _listener {router.endpoint(uri)}
 {
 	assert(web::uri::validate(endpoint()));

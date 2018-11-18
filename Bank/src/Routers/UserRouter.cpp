@@ -1,6 +1,6 @@
 ﻿#include "UserRouter.h"
 
-void UserRouter::_handleGet(const request& req) const
+void UserRouter::_handlePost(const request_t& req) const
 {
 	using web::json::value;
 

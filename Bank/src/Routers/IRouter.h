@@ -6,25 +6,27 @@
 class IRouter
 {
 protected:
-	using request = web::http::http_request;
+	using request_t = web::http::http_request;
 
-	static void handleNotAllowed(const request& req)
+	static void handleNotAllowed(const request_t& req)
 	{
 		req.reply(web::http::status_codes::MethodNotAllowed);
 	}
 
 public:
+	using uri_t = web::uri;
+
 	IRouter() = default;
 
-	virtual ~IRouter() = 0;
+	virtual ~IRouter() = default;
 
 	[[nodiscard]] 
-	auto endpoint(const utility::string_t& uri) const noexcept { return _endpoint(uri); }
+	auto endpoint(const uri_t& uri) const noexcept { return _endpoint(uri); }
 
-	void handleGet(const request& req)    const { _handleGet(req); }
-	void handlePost(const request& req)   const { _handlePost(req); }
-	void handlePatch(const request& req)  const { _handlePatch(req); }
-	void handleDelete(const request& req) const { _handleDelete(req); }
+	void handleGet   (const request_t& req) const { _handleGet(req); }
+	void handlePost  (const request_t& req) const { _handlePost(req); }
+	void handlePatch (const request_t& req) const { _handlePatch(req); }
+	void handleDelete(const request_t& req) const { _handleDelete(req); }
 
 	IRouter(const IRouter&) = delete;
 	IRouter& operator=(const IRouter&) = delete;
@@ -33,14 +35,12 @@ public:
 	IRouter& operator=(IRouter&&) = delete;
 
 private:
-	virtual web::uri _endpoint(const utility::string_t&) const noexcept = 0;
+	virtual uri_t _endpoint(const uri_t&) const noexcept = 0;
 
-	virtual void _handleGet(const request&)    const = 0;
-	virtual void _handlePost(const request&)   const = 0;
-	virtual void _handlePatch(const request&)  const = 0;
-	virtual void _handleDelete(const request&) const = 0;
+	virtual void _handleGet   (const request_t&) const = 0;
+	virtual void _handlePost  (const request_t&) const = 0;
+	virtual void _handlePatch (const request_t&) const = 0;
+	virtual void _handleDelete(const request_t&) const = 0;
 };
-
-inline IRouter::~IRouter() = default;
 
 #endif // IROUTER_H

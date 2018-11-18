@@ -1,6 +1,7 @@
 ﻿#ifndef UTILITY_FUNCTIONS_H
 #define UTILITY_FUNCTIONS_H
 
+#include "../Controller.h"
 #include <cpprest/base_uri.h>
 #include <cpprest/http_msg.h>
 
@@ -11,7 +12,7 @@ namespace util
 		return web::uri::split_path(web::uri::decode(req.relative_uri().path()));
 	}
 
-	void startServer(const utility::string_t&);
+	void startServer(const Controller::uri_t&);
 }
 
 #endif

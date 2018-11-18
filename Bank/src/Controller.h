@@ -7,7 +7,9 @@
 class Controller
 {
 public:
-	Controller(const IRouter&, const utility::string_t&);
+	using uri_t = IRouter::uri_t;
+
+	Controller(const IRouter&, const uri_t&);
 
 	~Controller() { _listener.close(); }
 
@@ -17,7 +19,7 @@ public:
 
 #pragma region deleted functions
 	// We don't want a temporary Router
-	Controller(const IRouter&&, const utility::string_t&) = delete;
+	Controller(const IRouter&&, const uri_t&) = delete;
 
 	// Copy and move are not expected
 	Controller(const Controller&) = delete;
