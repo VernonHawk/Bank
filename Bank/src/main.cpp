@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 
 #include "Controller.h"
+#include "Routers/UserRouter.h"
 #include "Utility/TerminationWaiter.h"
 
 int main(const int argc, wchar_t* argv[])
@@ -9,9 +10,10 @@ int main(const int argc, wchar_t* argv[])
 
 	const auto host = utility::string_t {U("http://localhost:")};
 
-	//auto c = Controller {r, host + port};
+	const auto userRouter = UserRouter {};
+	auto userController = Controller {userRouter, host + port};
 
-	//c.start();
+	userController.start();
 
 	util::TerminationWaiter::wait();
 
