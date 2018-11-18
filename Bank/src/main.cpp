@@ -1,8 +1,7 @@
 ﻿#include <iostream>
 
 #include "Controller.h"
-#include "Routers/UserRouter.h"
-#include "Utility/TerminationWaiter.h"
+#include "Utility/UtilityFunctions.h"
 
 int main(const int argc, wchar_t* argv[])
 {
@@ -10,14 +9,9 @@ int main(const int argc, wchar_t* argv[])
 
 	const auto port = argc == 2 ? argv[1] : U("1337");
 
-	const auto api  = U("/api");
+	const auto api = U("/api");
 
-	const auto userRouter = UserRouter {};
-	auto userController = Controller {userRouter, host + port + api};
-
-	userController.start();
-
-	util::TerminationWaiter::wait();
+	util::startServer(host + port + api);
 
 #ifndef NDEBUG
 	std::cout << "Server stopped\n";

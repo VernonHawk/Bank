@@ -31,11 +31,6 @@ private:
 	const IRouter* _router;
 	
 	web::http::experimental::listener::http_listener _listener;
-	
-	static auto parseRequestPath(const web::http::http_request& req)
-	{
-		return web::uri::split_path(web::uri::decode(req.relative_uri().path()));
-	}
 };
 
 #endif

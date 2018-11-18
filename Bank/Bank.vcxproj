@@ -135,12 +135,14 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Routers\UserRouter.cpp" />
     <ClCompile Include="src\utility\TerminationWaiter.cpp" />
+    <ClCompile Include="src\utility\UtilityFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Routers\IRouter.h" />
     <ClInclude Include="src\Controller.h" />
     <ClInclude Include="src\Routers\UserRouter.h" />
     <ClInclude Include="src\utility\TerminationWaiter.h" />
+    <ClInclude Include="src\utility\UtilityFunctions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
