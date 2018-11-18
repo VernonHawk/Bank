@@ -16,7 +16,7 @@ namespace util
 	private:
 		static std::condition_variable _condition;
 
-		static void handleUserInterrupt(int);
+		static void handleUserInterrupt(int) noexcept;
 	};
 }
 

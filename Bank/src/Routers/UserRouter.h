@@ -6,7 +6,7 @@
 class UserRouter : public IRouter
 {
 	[[nodiscard]] 
-	uri_t _endpoint(const uri_t& uri) const noexcept override
+	uri_t _endpoint(const uri_t& uri) const override
 	{
 		return web::uri_builder {uri}.append_path(U("user")).to_uri();
 	}
