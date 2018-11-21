@@ -3,7 +3,7 @@ Server side of the [ATM](https://github.com/Kitske/ATM) university project, repr
 
 ## Built With
 
-- [cpprestsdk (Cassandra)](https://github.com/Microsoft/cpprestsdk) - web framework to set up an HTTP server.
+- [cpprestsdk (Casablanca)](https://github.com/Microsoft/cpprestsdk) - web framework to set up an HTTP server.
 
 ## Authors
 
