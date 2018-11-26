@@ -16,10 +16,13 @@ void UserRouter::_handlePost(const request_t& req) const
 	req.extract_json()
 	   .then([req](const pplx::task<value>& task)
 	   {
-		   const auto json = task.get();
+			const auto body = task.get();
 
-		   // TODO: do something with body
+		    // TODO: pass json to something that will process it
 
-		   return req.reply(web::http::status_codes::OK, json);
+			const auto response = body; // TODO: get real response
+			const auto code = web::http::status_codes::OK; // TODO: get real code
+			
+		    return req.reply(code, response);
 	   });
 }
