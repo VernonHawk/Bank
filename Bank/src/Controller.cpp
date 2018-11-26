@@ -2,8 +2,9 @@
 
 #include <cassert>
 
-Controller::Controller(const IRouter& router, const uri_t& uri)
-	: _router {&router}, _listener {router.endpoint(uri)}
+Controller::Controller(const IRouter& router, const uri_t& uri) : 
+	_router   {&router}, 
+	_listener {web::uri_builder {uri}.append_path(router.path()).to_uri()}
 {
 	assert(web::uri::validate(endpoint()));
 
