@@ -13,6 +13,7 @@ public:
 
 	~Controller() noexcept { _listener.close(); }
 
+	[[nodiscard]]
 	auto endpoint() const { return _listener.uri().to_string(); }
 
 	auto start() -> Controller&;

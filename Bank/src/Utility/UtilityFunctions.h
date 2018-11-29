@@ -7,9 +7,16 @@
 
 namespace util
 {
+	[[nodiscard]]
 	inline auto parseRequestPath(const web::http::http_request& req)
 	{
 		return web::uri::split_path(req.relative_uri().path());
+	}
+
+	[[nodiscard]]
+	inline auto parseRequestQuery(const web::http::http_request& req)
+	{
+		return web::uri::split_query(req.relative_uri().query());
 	}
 
 	void startServer(const Controller::uri_t&);
