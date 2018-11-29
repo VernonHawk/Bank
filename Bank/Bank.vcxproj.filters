@@ -24,13 +24,16 @@
     <ClCompile Include="src\Controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Routers\UserRouter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Utility\UtilityFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Routers\IRouter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Routers\UserRouter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Routers\BalanceRouter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,10 +47,13 @@
     <ClInclude Include="src\Routers\IRouter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utility\UtilityFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\Routers\UserRouter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Utility\UtilityFunctions.h">
+    <ClInclude Include="src\Routers\BalanceRouter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
