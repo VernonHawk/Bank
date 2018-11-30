@@ -20,9 +20,9 @@ void UserRouter::_handlePost(const request_t& req) const
 	   {
 			const auto body = task.get();
 
-			const auto check = util::areParametersCorrect(body, {U("number"), U("pin")});
-
 			auto resp = value {};
+
+			const auto check = util::areParametersCorrect(body, {U("number"), U("pin")});
 
 		    if (!check.first)
 		    {
@@ -31,7 +31,7 @@ void UserRouter::_handlePost(const request_t& req) const
 				return;
 		    }
 
-		    // TODO: pass json to something that will process it and get real response
+		    // TODO: pass body to something that will process it and get real response
 
 			const auto code = status_codes::OK; // TODO: get real code
 			

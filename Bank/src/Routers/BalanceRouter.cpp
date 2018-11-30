@@ -29,7 +29,29 @@ void BalanceRouter::_handleGet(const request_t& req) const
 
 void BalanceRouter::_handlePatch(const request_t& req) const
 {
-	const auto code = web::http::status_codes::OK; // TODO: get real code
+	using web::http::status_codes;
+	using web::json::value;
 
-	req.reply(code);
+	req.extract_json()
+	   .then([req](const pplx::task<value>& task)
+	   {
+			const auto body = task.get();
+
+			auto resp = value {};
+
+			const auto check = util::areParametersCorrect(body, {U("number"), U("amount")});
+
+			if (!check.first)
+			{
+				resp[U("reason")] = value {check.second};
+				req.reply(status_codes::BadRequest, resp);
+				return;
+			}
+
+			// TODO: pass body to something that will process it and get real response
+
+			const auto code = status_codes::OK; // TODO: get real code
+
+			req.reply(code, resp);
+	   });
 }
