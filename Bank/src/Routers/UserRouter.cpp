@@ -20,14 +20,16 @@ void UserRouter::_handlePost(const request_t& req) const
 	   {
 			const auto body = task.get();
 
+			const auto check = util::areParametersCorrect(body, {U("number"), U("pin")});
+
 			auto resp = value {};
 
-			if (body.size() != 2 || !(body.has_field(U("number")) && body.has_field(U("pin"))))
-			{
-				resp[U("reason")] = value {U("Only two parameters 'number' and 'pin' are allowed and required.")};
+		    if (!check.first)
+		    {
+				resp[U("reason")] = value {check.second};
 				req.reply(status_codes::BadRequest, resp);
 				return;
-			}
+		    }
 
 		    // TODO: pass json to something that will process it and get real response
 

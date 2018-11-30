@@ -9,10 +9,11 @@ void BalanceRouter::_handleGet(const request_t& req) const
 	auto resp = value {};
 
 	const auto query = util::parseRequestQuery(req);
+	const auto check = util::areParametersCorrect(query, {U("number")});
 
-	if (query.size() != 1 || query.find(U("number")) == query.end())
+	if (!check.first)
 	{
-		resp[U("reason")] = value {U("Only one parameter 'number' is allowed and required.")};
+		resp[U("reason")] = value {check.second};
 		req.reply(status_codes::BadRequest, resp);
 		return;
 	}
