@@ -3,11 +3,13 @@
 
 void UserRouter::_handlePost(const request_t& req) const
 {
+	using web::http::status_codes;
+
 	const auto path = util::parseRequestPath(req);
 
 	if (path.size() != 1 || path[0] != U("authorize"))
 	{
-		req.reply(web::http::status_codes::NotFound);
+		req.reply(status_codes::NotFound);
 		return;
 	}
 
@@ -18,11 +20,19 @@ void UserRouter::_handlePost(const request_t& req) const
 	   {
 			const auto body = task.get();
 
-		    // TODO: pass json to something that will process it
+			auto resp = value {};
 
-			const auto response = body; // TODO: get real response
-			const auto code = web::http::status_codes::OK; // TODO: get real code
+			if (body.size() != 2 || !(body.has_field(U("number")) && body.has_field(U("pin"))))
+			{
+				resp[U("reason")] = value {U("Only two parameters 'number' and 'pin' are allowed and required.")};
+				req.reply(status_codes::BadRequest, resp);
+				return;
+			}
+
+		    // TODO: pass json to something that will process it and get real response
+
+			const auto code = status_codes::OK; // TODO: get real code
 			
-		    return req.reply(code, response);
+		    req.reply(code, resp);
 	   });
 }
