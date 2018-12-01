@@ -23,7 +23,7 @@ public:
 	void handleDelete(const request_t& req) const;
 
 	[[nodiscard]]
-	const path_t& path() const { return _path; }
+	const path_t& path() const noexcept { return _path; }
 
 	#pragma region deleted functions
 	IRouter(const IRouter&) = delete;
