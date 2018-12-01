@@ -132,16 +132,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Controller.cpp" />
+    <ClCompile Include="src\Cryptography\SaltGenerator.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Routers\IRouter.cpp" />
     <ClCompile Include="src\Routers\UserRouter.cpp" />
+    <ClCompile Include="src\Cryptography\Hashing.cpp" />
     <ClCompile Include="src\Utility\TerminationWaiter.cpp" />
     <ClCompile Include="src\Utility\UtilityFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Cryptography\SaltGenerator.h" />
     <ClInclude Include="src\Routers\IRouter.h" />
     <ClInclude Include="src\Controller.h" />
     <ClInclude Include="src\Routers\UserRouter.h" />
+    <ClInclude Include="src\Cryptography\Hashing.h" />
     <ClInclude Include="src\Utility\TerminationWaiter.h" />
     <ClInclude Include="src\Utility\UtilityFunctions.h" />
   </ItemGroup>
