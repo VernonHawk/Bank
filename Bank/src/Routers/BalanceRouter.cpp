@@ -9,11 +9,11 @@ void BalanceRouter::_handleGet(const request_t& req) const
 	auto resp = value {};
 
 	const auto query = util::parseRequestQuery(req);
-	const auto check = util::areParametersCorrect(query, {U("number")});
+	const auto [correct, reason] = util::areParametersCorrect(query, {U("number")});
 
-	if (!check.first)
+	if (!correct)
 	{
-		resp[U("reason")] = value {check.second};
+		resp[U("reason")] = value {reason};
 		req.reply(status_codes::BadRequest, resp);
 		return;
 	}
@@ -39,11 +39,11 @@ void BalanceRouter::_handlePatch(const request_t& req) const
 
 			auto resp = value {};
 
-			const auto check = util::areParametersCorrect(body, {U("number"), U("amount")});
+			const auto [correct, reason] = util::areParametersCorrect(body, {U("number"), U("amount")});
 
-			if (!check.first)
+			if (!correct)
 			{
-				resp[U("reason")] = value {check.second};
+				resp[U("reason")] = value {reason};
 				req.reply(status_codes::BadRequest, resp);
 				return;
 			}

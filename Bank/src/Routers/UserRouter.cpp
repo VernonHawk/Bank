@@ -22,11 +22,11 @@ void UserRouter::_handlePost(const request_t& req) const
 
 			auto resp = value {};
 
-			const auto check = util::areParametersCorrect(body, {U("number"), U("pin")});
+			const auto [correct, reason] = util::areParametersCorrect(body, {U("number"), U("pin")});
 
-		    if (!check.first)
-		    {
-				resp[U("reason")] = value {check.second};
+			if (!correct)
+			{
+				resp[U("reason")] = value {reason};
 				req.reply(status_codes::BadRequest, resp);
 				return;
 		    }
