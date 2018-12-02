@@ -2,12 +2,41 @@
 #define IROUTER_H
 
 #include <cpprest/http_msg.h>
+#include <utility>
 
 class IRouter
 {
 protected:
 	using request_t = web::http::http_request;
+	using path_t    = utility::string_t;
 
+public:
+	using uri_t = web::uri;
+
+	explicit IRouter(path_t path) noexcept : _path {std::move(path)} {};
+
+	virtual ~IRouter() noexcept = default;
+
+	void handleGet   (const request_t& req) const;
+	void handlePost  (const request_t& req) const;
+	void handlePatch (const request_t& req) const;
+	void handleDelete(const request_t& req) const;
+
+	[[nodiscard]]
+	const path_t& path() const { return _path; }
+
+	#pragma region deleted functions
+	IRouter(const IRouter&) = delete;
+	IRouter& operator=(const IRouter&) = delete;
+
+	IRouter(IRouter&&) = delete;
+	IRouter& operator=(IRouter&&) = delete;
+	#pragma endregion 
+
+protected:
+	const path_t _path;
+
+	#pragma region other handlers
 	static void handleNotAllowed(const request_t& req)
 	{
 		req.reply(web::http::status_codes::MethodNotAllowed);
@@ -18,32 +47,13 @@ protected:
 		req.reply(web::http::status_codes::InternalError);
 	}
 
-public:
-	using uri_t = web::uri;
-
-	IRouter() = default;
-
-	virtual ~IRouter() = default;
-
-	[[nodiscard]] 
-	auto endpoint(const uri_t& uri) const noexcept { return _endpoint(uri); }
-
-	void handleGet   (const request_t& req) const;
-	void handlePost  (const request_t& req) const;
-	void handlePatch (const request_t& req) const;
-	void handleDelete(const request_t& req) const;
-
-	#pragma region deleted functions
-	IRouter(const IRouter&) = delete;
-	IRouter& operator=(const IRouter&) = delete;
-
-	IRouter(IRouter&&) = delete;
-	IRouter& operator=(IRouter&&) = delete;
+	static void handleInternalError(const request_t& req, const std::exception& ex)
+	{
+		req.reply(web::http::status_codes::InternalError, ex.what());
+	}
 	#pragma endregion 
 
 private:
-	virtual uri_t _endpoint(const uri_t&) const noexcept = 0;
-
 	virtual void _handleGet   (const request_t&) const = 0;
 	virtual void _handlePost  (const request_t&) const = 0;
 	virtual void _handlePatch (const request_t&) const = 0;
