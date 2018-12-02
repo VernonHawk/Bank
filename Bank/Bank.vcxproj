@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\BL\BusinessLogic.cpp" />
     <ClCompile Include="src\Controller.cpp" />
     <ClCompile Include="src\Cryptography\SaltGenerator.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -142,6 +143,7 @@
     <ClCompile Include="src\Utility\UtilityFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BL\BusinessLogic.h" />
     <ClInclude Include="src\Cryptography\SaltGenerator.h" />
     <ClInclude Include="src\Routers\IRouter.h" />
     <ClInclude Include="src\Controller.h" />
