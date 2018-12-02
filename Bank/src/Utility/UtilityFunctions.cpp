@@ -8,7 +8,7 @@ namespace util
 {
 	void startServer(const Controller::uri_t& uri)
 	{
-		const auto userRouter = UserRouter {};
+		const auto userRouter = UserRouter {U("user")};
 		auto userController = Controller {userRouter, uri};
 
 		userController.start();

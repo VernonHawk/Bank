@@ -19,7 +19,7 @@ namespace util
 		lock.unlock();
 	}
 
-	void TerminationWaiter::handleUserInterrupt(const int signal)
+	void TerminationWaiter::handleUserInterrupt(const int signal) noexcept
 	{
 		if (signal == SIGINT)
 			_condition.notify_one();

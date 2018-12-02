@@ -11,7 +11,7 @@ public:
 
 	Controller(const IRouter&, const uri_t&);
 
-	~Controller() { _listener.close(); }
+	~Controller() noexcept { _listener.close(); }
 
 	auto endpoint() const { return _listener.uri().to_string(); }
 
