@@ -26,7 +26,7 @@ void DBHandler::addUser(const std::string& name, const std::string& surname) {
 	//commit transaction
 	mysql_real_query(&mysql, "COMMIT",6);
 
-	if (mysql_errno(&mysql)) throw new ErrorConnection(&mysql);
+	if (mysql_errno(&mysql)) throw ErrorConnection(&mysql);
 }
 
 void DBHandler::addAccount(unsigned int user_id, std::string number, std::string PIN) {
@@ -42,7 +42,7 @@ void DBHandler::addAccount(unsigned int user_id, std::string number, std::string
 	//commit transaction
 	mysql_real_query(&mysql, "COMMIT", 6);
 
-	if (mysql_errno(&mysql)) throw new ErrorConnection(&mysql);
+	if (mysql_errno(&mysql)) throw ErrorConnection(&mysql);
 }
 
 
