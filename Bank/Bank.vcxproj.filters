@@ -34,6 +34,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\utility\DBHandler.cpp">
+    <ClCompile Include="src\Cryptography\SaltGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Cryptography\Hashing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -54,6 +58,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\utility\DBHandler.h">
+    <ClInclude Include="src\Cryptography\SaltGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Cryptography\Hashing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
