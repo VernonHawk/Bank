@@ -1,5 +1,8 @@
-﻿#include "Utility/UtilityFunctions.h"
+#include "Controller.h"
+#include "Utility/UtilityFunctions.h"
+#include "Utility/DBHandler.h"
 #include <iostream>
+
 
 int main(const int argc, wchar_t* argv[])
 {
