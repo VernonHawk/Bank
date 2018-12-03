@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="src\BL\BusinessLogic.h" />
     <ClInclude Include="src\Cryptography\SaltGenerator.h" />
+    <ClInclude Include="src\Errors\CantAuthorize.h" />
     <ClInclude Include="src\Errors\IError.h" />
     <ClInclude Include="src\Errors\InternalError.h" />
     <ClInclude Include="src\Errors\InvalidArgument.h" />

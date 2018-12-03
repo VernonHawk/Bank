@@ -1,7 +1,8 @@
 ﻿#include "BusinessLogic.h"
 #include "../Errors/InternalError.h"
 #include "../Errors/InvalidArgument.h"
-#include "../Errors/NotFound.h"
+//#include "../Errors/NotFound.h"
+//#include "../Errors/CantAuthorize.h"
 #include "../Models/Card.h"
 #include <optional>
 
