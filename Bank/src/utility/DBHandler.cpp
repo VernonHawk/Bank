@@ -30,8 +30,13 @@ auto DBHandler::getCard(std::wstring& number) -> std::optional<Card> {
 	return row ? std::optional<Card>{Card(atoi(row[0]), atoi(row[1]), util::s2ws(row[2]), util::s2ws(row[3]), util::s2ws(row[4]), strtod(row[5], 0), atoi(row[6]))} : std::nullopt;
 }
 
-void DBHandler::updateCard(const Card&) {
+void DBHandler::updateCard(const Card& card) {
+	connect();
+	std::string req = "UPDATE accounts SET balance = '" + std::to_string(card.balance()) + "', authorizationTries = '" 
+		+ std::to_string(card.authTries()) + "' WHERE id = '" + std::to_string(card.id()) + '\'' ;
+	mysql_query(connection, req.c_str());
 
+	if (mysql_errno(&mysql)) throw ErrorConnection(&mysql);
 };
 
 
