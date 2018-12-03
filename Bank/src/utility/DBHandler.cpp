@@ -36,11 +36,14 @@ auto DBHandler::getCard(const utility::string_t& number) -> std::optional<Card> 
 
 void DBHandler::updateCard(const Card& card) {
 	connect();
+
 	std::string req = "UPDATE accounts SET balance = '" + std::to_string(card.balance()) + "', authorizationTries = '" 
 		+ std::to_string(card.authTries()) + "' WHERE id = '" + std::to_string(card.id()) + '\'' ;
+
 	mysql_query(connection, req.c_str());
 
-	if (mysql_errno(&mysql)) throw ErrorConnection(&mysql);
+	if (mysql_errno(&mysql)) 
+		throw ErrorConnection(&mysql);
 };
 
 
