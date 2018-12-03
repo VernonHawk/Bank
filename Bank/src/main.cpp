@@ -6,7 +6,6 @@
 
 int main(const int argc, wchar_t* argv[])
 {
-	std::cout<<(*DBHandler::getInstance()->getCard("1111111111111111")).balance();
 	try
 	{
 		const auto port = argc == 2 ? argv[1] : U("1337");
