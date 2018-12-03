@@ -1,6 +1,8 @@
 ﻿#include "BusinessLogic.h"
 #include "../Errors/InternalError.h"
 #include "../Errors/InvalidArgument.h"
+#include "../Errors/NotFound.h"
+#include "../Models/Card.h"
 #include <optional>
 
 auto tryAuthorize(const utility::string_t& number, const utility::string_t& pin) 
@@ -14,20 +16,24 @@ auto tryAuthorize(const utility::string_t& number, const utility::string_t& pin)
 
 	try
 	{
-		// TODO: get data from db : 404
+		//const auto maybeCard = getCard(number);
 
-		// TODO: check authorize tries : 403
-		// if (card.authTries() > Card::maxAuthTries)
-		//	   return std::make_unique<CantAuthorize>(U("auth tries"));
+		//if (!maybeCard.has_value())
+			//return std::make_unique<NotFound>(U("number"));
 
-		// TODO: hash pass and check it : 403
+		// if (maybeCard.value().authTries() > Card::maxAuthTries)
+			// return std::make_unique<CantAuthorize>(U("auth tries"));
+
 		// if (hash_password(pin, card.salt()) != card.pin())
 		// {
-		//	   increment card tries
+		//	   card.incrementAuthTries();
+		//	   updateCard(card);
+
 		//     return std::make_unique<CantAuthorize>(U("pin"));
 		// }  
 
-		// TODO: set card tries to 0
+		// card.resetAuthTries();
+		// updateCard(card);
 	}
 	catch (const std::exception&)
 	{
@@ -40,3 +46,4 @@ auto tryAuthorize(const utility::string_t& number, const utility::string_t& pin)
 
 	return {};
 }
+

@@ -95,5 +95,8 @@
     <ClInclude Include="src\Models\Card.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Errors\NotFound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
