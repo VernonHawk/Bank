@@ -1,6 +1,7 @@
 ﻿#include "UserRouter.h"
-#include "../Utility/UtilityFunctions.h"
 #include "../BL/BusinessLogic.h"
+#include "../Errors/IError.h"
+#include "../Utility/UtilityFunctions.h"
 
 void UserRouter::_handlePost(const request_t& req) const
 {
@@ -32,10 +33,17 @@ void UserRouter::_handlePost(const request_t& req) const
 			    return;
 		    }
 
-		    // TODO: pass body to something that will process it and get real response
+			const auto maybeError = tryAuthorize(
+				body.at(U("number")).as_string(), body.at(U("pin")).as_string()
+			);
 
-			const auto code = status_codes::OK; // TODO: get real code
-			
-		    req.reply(code, resp);
+		    if (maybeError.has_value()) // is error
+		    {
+			    resp[U("reason")] = value {maybeError.value()->reason()};
+			    req.reply(maybeError.value()->code(), resp);
+			    return;
+		    }
+
+		    req.reply(status_codes::OK);
 	   });
 }

@@ -80,5 +80,11 @@
     <ClInclude Include="src\Utility\Validation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Errors\IError.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Errors\InvalidArgument.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

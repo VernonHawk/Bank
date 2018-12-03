@@ -3,19 +3,23 @@
 
 #include "../Utility/Validation.h"
 #include <cpprest/details/basic_types.h>
+#include <optional>
 
-void tryAuthorize(const utility::string_t& number, const utility::string_t& pin);
+class IError;
+
+auto tryAuthorize(const utility::string_t& number, const utility::string_t& pin)
+	-> std::optional<std::unique_ptr<IError>>;
 
 namespace details
 {
 	[[nodiscard]] inline
-	bool isNumberCorrect(const utility::string_t& number)
+	bool isCorrectNumber(const utility::string_t& number)
 	{
 		return util::isValidDigitSequence(number, 16);
 	}
 
 	[[nodiscard]] inline
-	bool isPinCorrect(const utility::string_t& pin)
+	bool isCorrectPin(const utility::string_t& pin)
 	{
 		return util::isValidDigitSequence(pin, 4);
 	}
