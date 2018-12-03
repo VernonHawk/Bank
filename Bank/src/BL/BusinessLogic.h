@@ -4,11 +4,16 @@
 #include "../Utility/Validation.h"
 #include <cpprest/details/basic_types.h>
 #include <optional>
+#include <variant>
 
 class IError;
 
+[[nodiscard]]
 auto tryAuthorize(const utility::string_t& number, const utility::string_t& pin)
 	-> std::optional<std::unique_ptr<IError>>;
+
+[[nodiscard]]
+auto tryGetBalance(const utility::string_t& number) -> std::variant<double, std::unique_ptr<IError>>;
 
 [[nodiscard]]
 auto tryChangeBalance(const utility::string_t& number, const utility::string_t& amount)
