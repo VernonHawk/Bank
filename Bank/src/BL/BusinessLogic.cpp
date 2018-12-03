@@ -1,10 +1,11 @@
 ﻿#include "BusinessLogic.h"
 #include "../Errors/InternalError.h"
 #include "../Errors/InvalidArgument.h"
-//#include "../Errors/NotFound.h"
-//#include "../Errors/CantAuthorize.h"
-//#include "../Models/Card.h"
+#include "../Errors/NotFound.h"
+#include "../Errors/CantAuthorize.h"
 #include "../Utility/UtilityFunctions.h"
+#include "../Utility/DBHandler.h"
+#include "../Cryptography/Hashing.h"
 #include <optional>
 
 auto tryAuthorize(const utility::string_t& number, const utility::string_t& pin) 
@@ -18,24 +19,27 @@ auto tryAuthorize(const utility::string_t& number, const utility::string_t& pin)
 
 	try
 	{
-		//const auto maybeCard = getCard(number);
+		auto maybeCard = DBHandler::getInstance()->getCard(number);
 
-		//if (!maybeCard.has_value())
-			//return std::make_unique<NotFound>(U("number"));
+		if (!maybeCard.has_value())
+			return std::make_unique<NotFound>(U("number"));
 
-		// if (maybeCard.value().authTries() > Card::maxAuthTries)
-			// return std::make_unique<CantAuthorize>(U("auth tries"));
+		auto card = std::move(maybeCard.value());
 
-		// if (hash_password(pin, card.salt()) != card.pin())
-		// {
-		//	   card.incrementAuthTries();
-		//	   updateCard(card);
+		if (card.authTries() > Card::maxAuthTries)
+			return std::make_unique<CantAuthorize>(U("auth tries"));
 
-		//     return std::make_unique<CantAuthorize>(U("pin"));
-		// }  
 
-		// card.resetAuthTries();
-		// updateCard(card);
+		if (util::hashPassword(pin, card.salt()) != card.pin())
+		{
+			card.incrementAuthTries();
+			   DBHandler::getInstance()->updateCard(card);
+
+		     return std::make_unique<CantAuthorize>(U("pin"));
+		}  
+
+		card.resetAuthTries();
+		DBHandler::getInstance()->updateCard(card);
 	}
 	catch (const std::exception&)
 	{
@@ -56,13 +60,12 @@ auto tryGetBalance(const utility::string_t& number) -> std::variant<double, std:
 
 	try
 	{
-		//const auto maybeCard = getCard(number);
+		const auto maybeCard = DBHandler::getInstance()->getCard(number);
 
-		//if (!maybeCard.has_value())
-			//return std::make_unique<NotFound>(U("number"));
+		if (!maybeCard.has_value())
+			return std::make_unique<NotFound>(U("number"));
 
-		// return maybeCard.value().balance();
-		return 0;
+		return maybeCard.value().balance();
 	}
 	catch (const std::exception&)
 	{
@@ -87,14 +90,14 @@ auto tryChangeBalance(const utility::string_t& number, const utility::string_t& 
 
 	try
 	{
-		//const auto maybeCard = getCard(number);
+		auto maybeCard = DBHandler::getInstance()->getCard(number);
 
-		//if (!maybeCard.has_value())
-			//return std::make_unique<NotFound>(U("number"));
+		if (!maybeCard.has_value())
+			return std::make_unique<NotFound>(U("number"));
 
-		// card.addToBalance(maybeAmount.value());
+		maybeCard.value().addToBalance(maybeAmount.value());
 
-		// updateCard(card);
+		DBHandler::getInstance()->updateCard(maybeCard.value());
 	}
 	catch (const std::exception&)
 	{
@@ -125,15 +128,15 @@ auto tryTransfer(const utility::string_t& from, const utility::string_t& to, con
 
 	try
 	{
-		//const auto maybeFrom = getCard(from);
+		const auto maybeFrom = DBHandler::getInstance()->getCard(from);
 
-		//if (!maybeFrom.has_value())
-			//return std::make_unique<NotFound>(U("from"));
+		if (!maybeFrom.has_value())
+			return std::make_unique<NotFound>(U("from"));
 
-		//const auto maybeTo = getCard(to);
+		const auto maybeTo = DBHandler::getInstance()->getCard(to);
 
-		//if (!maybeTo.has_value())
-			//return std::make_unique<NotFound>(U("to"));
+		if (!maybeTo.has_value())
+			return std::make_unique<NotFound>(U("to"));
 
 		// makeTransfer(maybeFrom.value(), maybeTo.value(), maybeAmount.value());
 	}
