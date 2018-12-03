@@ -1,5 +1,5 @@
 ﻿#include "BusinessLogic.h"
-#include "../Errors/IError.h"
+#include "../Errors/InternalError.h"
 #include "../Errors/InvalidArgument.h"
 #include <optional>
 
@@ -12,9 +12,14 @@ auto tryAuthorize(const utility::string_t& number, const utility::string_t& pin)
 	if (!details::isCorrectPin(pin))
 		return std::make_unique<InvalidArgument>(U("pin"));
 
-	// try
-	// get data from db : 404
-	// catch error      : 500
+	try
+	{
+		// TODO: get data from db : 404
+	}
+	catch (const std::exception&)
+	{
+		return std::make_unique<InternalError>(U("db"));
+	}
 
 	// check authorize tries  : 403
 
