@@ -9,6 +9,9 @@ public:
 	[[nodiscard]] static
 	auto next() -> utility::string_t;
 
+	// no need to be constructed
+	SaltGenerator() = delete;
+
 private:
 	static size_t _counter;
 };

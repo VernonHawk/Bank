@@ -1,4 +1,6 @@
 ﻿#include "UserRouter.h"
+#include "../BL/BusinessLogic.h"
+#include "../Errors/IError.h"
 #include "../Utility/UtilityFunctions.h"
 
 void UserRouter::_handlePost(const request_t& req) const
@@ -22,17 +24,26 @@ void UserRouter::_handlePost(const request_t& req) const
 
 			auto resp = value {};
 
-			if (body.size() != 2 || !(body.has_field(U("number")) && body.has_field(U("pin"))))
+			const auto [correct, reason] = util::areParametersCorrect(body, {U("number"), U("pin")});
+
+			if (!correct)
 			{
-				resp[U("reason")] = value {U("Only two parameters 'number' and 'pin' are allowed and required.")};
-				req.reply(status_codes::BadRequest, resp);
-				return;
-			}
+			    resp[U("reason")] = value {reason};
+			    req.reply(status_codes::BadRequest, resp);
+			    return;
+		    }
 
-		    // TODO: pass json to something that will process it and get real response
+			const auto maybeError = tryAuthorize(
+				body.at(U("number")).as_string(), body.at(U("pin")).as_string()
+			);
 
-			const auto code = status_codes::OK; // TODO: get real code
-			
-		    req.reply(code, resp);
+		    if (maybeError.has_value()) // is error
+		    {
+			    resp[U("reason")] = value {maybeError.value()->reason()};
+			    req.reply(maybeError.value()->code(), resp);
+			    return;
+		    }
+
+		    req.reply(status_codes::OK);
 	   });
 }
