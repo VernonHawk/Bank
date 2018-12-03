@@ -1,5 +1,6 @@
 ﻿#include "BalanceRouter.h"
 #include "../BL/BusinessLogic.h"
+#include "../Errors/IError.h"
 #include "../Utility/UtilityFunctions.h"
 
 void BalanceRouter::_handleGet(const request_t& req) const
@@ -19,13 +20,21 @@ void BalanceRouter::_handleGet(const request_t& req) const
 		return;
 	}
 
-	// TODO: pass code somewhere to process and get balance or error
+	const auto maybeBalance = tryGetBalance(query.at(U("number")));
 
-	resp[U("balance")] = value {322}; // TODO: get real balance
+	if (const auto balancePtr = std::get_if<double>(&maybeBalance))
+	{
+		resp[U("balance")] = value {*balancePtr};
 
-	const auto code = status_codes::OK; // TODO: get real code
+		req.reply(status_codes::OK, resp);
+	}
+	else
+	{
+		const auto& errPtr = std::get<std::unique_ptr<IError>>(maybeBalance);
 
-	req.reply(code, resp);
+		resp[U("reason")] = value {errPtr->reason()};
+		req.reply(errPtr->code(), resp);
+	}
 }
 
 void BalanceRouter::_handlePatch(const request_t& req) const

@@ -48,3 +48,28 @@ auto tryAuthorize(const utility::string_t& number, const utility::string_t& pin)
 	return {};
 }
 
+auto tryGetBalance(const utility::string_t& number) -> std::variant<double, std::unique_ptr<IError>>
+{
+	if (!details::isCorrectNumber(number))
+		return std::make_unique<InvalidArgument>(U("number"));
+
+	try
+	{
+		//const auto maybeCard = getCard(number);
+
+		//if (!maybeCard.has_value())
+			//return std::make_unique<NotFound>(U("number"));
+
+		// return maybeCard.value().balance();
+		return 0; 
+	}
+	catch (const std::exception&)
+	{
+		return std::make_unique<InternalError>(U("db"));
+	}
+	catch (...)
+	{
+		return std::make_unique<InternalError>(U("server"));
+	}
+}
+
