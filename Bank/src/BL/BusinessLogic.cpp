@@ -143,7 +143,7 @@ auto tryTransfer(const utility::string_t& from, const utility::string_t& to, con
 		if (!maybeTo.has_value())
 			return std::make_unique<NotFound>(U("to"));
 
-		// makeTransfer(maybeFrom.value(), maybeTo.value(), maybeAmount.value());
+		DBHandler::getInstance()->makeTransfer(maybeFrom.value(), maybeTo.value(), maybeAmount.value());
 	}
 	catch (const std::exception&)
 	{
