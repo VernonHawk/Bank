@@ -14,7 +14,7 @@ void TransferRouter::_handlePatch(const request_t& req) const
 
 		auto resp = value {};
 
-		const auto[correct, reason] = util::areParametersCorrect(body, {U("to"), U("from"), U("amount")});
+		const auto[correct, reason] = util::areParametersCorrect(body, {U("from"), U("to"), U("amount")});
 
 		if (!correct)
 		{
@@ -24,7 +24,7 @@ void TransferRouter::_handlePatch(const request_t& req) const
 		}
 
 		const auto maybeError = tryTransfer(
-			body.at(U("to")).as_string(), body.at(U("from")).as_string(), body.at(U("amount")).as_string()
+			body.at(U("from")).as_string(), body.at(U("to")).as_string(), body.at(U("amount")).as_string()
 		);
 
 		if (maybeError.has_value()) // is error
