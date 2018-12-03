@@ -44,6 +44,26 @@ void DBHandler::addAccount(unsigned int user_id, std::string number, std::string
 	if (mysql_errno(&mysql)) throw ErrorConnection(&mysql);
 }
 
+auto DBHandler::getCard(std::string number) -> std::optional<Card> {
+	connect();
+	std::string req = "SELECT * FROM accounts where number = " + number;
+	mysql_query(connection, req.c_str());
+	if (mysql_errno(&mysql)) throw ErrorConnection(&mysql);
+
+	MYSQL_RES *result = mysql_store_result(connection);
+
+	MYSQL_ROW row = mysql_fetch_row(result);
+
+	return row ? std::optional<Card>{Card(atoi(row[0]), atoi(row[1]), s2ws(row[2]), s2ws(row[3]), s2ws(row[4]), strtod(row[5], 0), atoi(row[6]))} : std::nullopt;
+}
+
+std::wstring DBHandler::s2ws(const std::string& s)
+{
+	std::wstring temp(s.length(), L' ');
+	std::copy(s.begin(), s.end(), temp.begin());
+	return temp;
+}
+
 
 //void DBHandler::addTransaction(unsigned int from_id, unsigned int to_id, double amount, time_t  t) {
 //	connect();

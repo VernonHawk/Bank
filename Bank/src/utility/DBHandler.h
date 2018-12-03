@@ -1,8 +1,10 @@
 #pragma once
+#include "../Models/Card.h"
 #include <mysql.h>
 #include <string>
 #include <iostream>
 #include <ctime>
+#include <optional>
 
 class DBHandler
 {
@@ -19,6 +21,7 @@ private:
 	//helpers
 	bool checkFormatNumber(std::string);
 	bool checkFormatPIN(std::string);
+	std::wstring s2ws(const std::string& s);
 public:
 	class ErrorConnection : public std::exception{
 	private:
@@ -33,7 +36,8 @@ public:
 		}
 		const char * what() const throw ()
 		{
-			return (_message + "; code: " + std::to_string(_code)).c_str();
+			std::string str = _message + "; code: " + std::to_string(_code);
+			return str.c_str();
 		}
 	};
 
@@ -49,6 +53,7 @@ public:
 	//void addTransaction(unsigned int from_id, unsigned int to_id, double amount, time_t  t = time(0));
 	//void deleteAccount(unsigned int id);
 
+	auto getCard(std::string number) -> std::optional<Card>;
 
 	//void updatePIN(size_t account_id,);
 
