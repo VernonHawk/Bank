@@ -25,6 +25,7 @@ namespace util
 
 	void startServer(const Controller::uri_t&);
 	std::wstring s2ws(const std::string& s);
+	std::string sw2s(const std::wstring& s);
 }
 
 #endif

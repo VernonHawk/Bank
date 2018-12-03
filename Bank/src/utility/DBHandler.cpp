@@ -17,9 +17,9 @@ DBHandler& DBHandler::connect() {
 };
 
 
-auto DBHandler::getCard(std::string number) -> std::optional<Card> {
+auto DBHandler::getCard(std::wstring& number) -> std::optional<Card> {
 	connect();
-	std::string req = "SELECT * FROM accounts where number = " + number;
+	std::string req = "SELECT * FROM accounts where number = " + util::sw2s(number);
 	mysql_query(connection, req.c_str());
 	if (mysql_errno(&mysql)) throw ErrorConnection(&mysql);
 
