@@ -29,13 +29,12 @@ auto tryAuthorize(const utility::string_t& number, const utility::string_t& pin)
 		if (card.authTries() > Card::maxAuthTries)
 			return std::make_unique<CantAuthorize>(U("auth tries"));
 
-
 		if (util::hashPassword(pin, card.salt()) != card.pin())
 		{
 			card.incrementAuthTries();
-			   DBHandler::getInstance()->updateCard(card);
+			DBHandler::getInstance()->updateCard(card);
 
-		     return std::make_unique<CantAuthorize>(U("pin"));
+		    return std::make_unique<CantAuthorize>(U("pin"));
 		}  
 
 		card.resetAuthTries();
@@ -95,6 +94,9 @@ auto tryChangeBalance(const utility::string_t& number, const utility::string_t& 
 		if (!maybeCard.has_value())
 			return std::make_unique<NotFound>(U("number"));
 
+		if (maybeAmount.value() + maybeCard.value().balance() < 0)
+			return std::make_unique<InvalidArgument>(U("balance"));
+
 		maybeCard.value().addToBalance(maybeAmount.value());
 
 		DBHandler::getInstance()->updateCard(maybeCard.value());
@@ -132,6 +134,9 @@ auto tryTransfer(const utility::string_t& from, const utility::string_t& to, con
 
 		if (!maybeFrom.has_value())
 			return std::make_unique<NotFound>(U("from"));
+
+		if (maybeAmount.value() + maybeFrom.value().balance() < 0)
+			return std::make_unique<InvalidArgument>(U("balance"));
 
 		const auto maybeTo = DBHandler::getInstance()->getCard(to);
 

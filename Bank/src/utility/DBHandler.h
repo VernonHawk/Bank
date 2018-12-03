@@ -47,7 +47,7 @@ public:
 	//void addTransaction(unsigned int from_id, unsigned int to_id, double amount, time_t  t = time(0));
 	//void deleteAccount(unsigned int id);
 
-	auto getCard(std::wstring& number) -> std::optional<Card>;
+	auto getCard(const utility::string_t& number) -> std::optional<Card>;
 	void updateCard(const Card&);
 
 	//void updatePIN(size_t account_id,);
