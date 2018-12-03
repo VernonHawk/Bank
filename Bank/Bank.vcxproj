@@ -135,6 +135,7 @@
     <ClCompile Include="src\Controller.cpp" />
     <ClCompile Include="src\Cryptography\SaltGenerator.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Models\Card.cpp" />
     <ClCompile Include="src\Routers\IRouter.cpp" />
     <ClCompile Include="src\Routers\BalanceRouter.cpp" />
     <ClCompile Include="src\Routers\UserRouter.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="src\Errors\IError.h" />
     <ClInclude Include="src\Errors\InternalError.h" />
     <ClInclude Include="src\Errors\InvalidArgument.h" />
+    <ClInclude Include="src\Models\Card.h" />
     <ClInclude Include="src\Routers\IRouter.h" />
     <ClInclude Include="src\Controller.h" />
     <ClInclude Include="src\Routers\BalanceRouter.h" />
