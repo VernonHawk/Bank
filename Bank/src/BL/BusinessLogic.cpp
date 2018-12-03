@@ -115,7 +115,7 @@ auto tryChangeBalance(const utility::string_t& number, const utility::string_t& 
 
 [[nodiscard]]
 auto tryTransfer(const utility::string_t& from, const utility::string_t& to, const utility::string_t& amount)
- -> std::optional<std::unique_ptr<IError>>
+	-> std::optional<std::unique_ptr<IError>>
 {
 	if (!details::isCorrectNumber(from))
 		return std::make_unique<InvalidArgument>(U("from"));
@@ -135,7 +135,7 @@ auto tryTransfer(const utility::string_t& from, const utility::string_t& to, con
 		if (!maybeFrom.has_value())
 			return std::make_unique<NotFound>(U("from"));
 
-		if (maybeAmount.value() + maybeFrom.value().balance() < 0)
+		if (maybeFrom.value().balance() - maybeAmount.value() < 0)
 			return std::make_unique<InvalidArgument>(U("balance"));
 
 		const auto maybeTo = DBHandler::getInstance()->getCard(to);

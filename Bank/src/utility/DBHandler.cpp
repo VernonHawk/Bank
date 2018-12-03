@@ -46,7 +46,7 @@ void DBHandler::updateCard(const Card& card) {
 		throw ErrorConnection(&mysql);
 };
 
-void DBHandler::makeTransfer(const Card& from, const Card& to, double amount) {
+void DBHandler::makeTransfer(const Card& from, const Card& to, const double amount) {
 	connect();
 	mysql_query(connection, " Start transaction");
 	std::string q = "UPDATE accounts SET balance = '" + std::to_string(from.balance() - amount) +  "' WHERE id = '" + std::to_string(from.id()) + '\'';
@@ -54,7 +54,7 @@ void DBHandler::makeTransfer(const Card& from, const Card& to, double amount) {
 	
 	//commit transaction if
 	//mysql_query(connection, "COMMIT");
-	if (!mysql_query(&mysql, q.c_str()) || !mysql_query(&mysql, q2.c_str()))
+	if (mysql_query(&mysql, q.c_str()) || mysql_query(&mysql, q2.c_str()))
 		mysql_rollback(connection);
 	else
 		mysql_commit(connection);
