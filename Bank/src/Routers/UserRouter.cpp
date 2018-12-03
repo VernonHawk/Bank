@@ -22,17 +22,19 @@ void UserRouter::_handlePost(const request_t& req) const
 
 			auto resp = value {};
 
-			if (body.size() != 2 || !(body.has_field(U("number")) && body.has_field(U("pin"))))
-			{
-				resp[U("reason")] = value {U("Only two parameters 'number' and 'pin' are allowed and required.")};
-				req.reply(status_codes::BadRequest, resp);
-				return;
-			}
+			const auto [correct, reason] = util::areParametersCorrect(body, {U("number"), U("pin")});
 
-		    // TODO: pass json to something that will process it and get real response
+			if (!correct)
+			{
+				  resp[U("reason")] = value {reason};
+				  req.reply(status_codes::BadRequest, resp);
+				  return;
+		  }
+
+		  // TODO: pass body to something that will process it and get real response
 
 			const auto code = status_codes::OK; // TODO: get real code
 			
-		    req.reply(code, resp);
+		  req.reply(code, resp);
 	   });
 }
