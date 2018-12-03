@@ -49,6 +49,7 @@ public:
 
 	auto getCard(const utility::string_t& number) -> std::optional<Card>;
 	void updateCard(const Card&);
+	void makeTransfer(const Card& from, const Card& to, double amount);
 
 	//void updatePIN(size_t account_id,);
 
