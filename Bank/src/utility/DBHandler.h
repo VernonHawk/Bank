@@ -18,10 +18,6 @@ private:
 	DBHandler(const DBHandler&) = delete;
 	DBHandler& operator=(DBHandler&);
 
-	//helpers
-	bool checkFormatNumber(std::string);
-	bool checkFormatPIN(std::string);
-	std::wstring s2ws(const std::string& s);
 public:
 	class ErrorConnection : public std::exception{
 	private:
@@ -48,12 +44,11 @@ public:
 	}
 	DBHandler& connect();
 
-	void addUser(const std::string& name, const std::string& surname);
-	void addAccount(unsigned int user_id, std::string number, std::string PIN);
 	//void addTransaction(unsigned int from_id, unsigned int to_id, double amount, time_t  t = time(0));
 	//void deleteAccount(unsigned int id);
 
 	auto getCard(std::string number) -> std::optional<Card>;
+	void updateCard(const Card&);
 
 	//void updatePIN(size_t account_id,);
 

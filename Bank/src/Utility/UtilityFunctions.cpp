@@ -20,4 +20,11 @@ namespace util
 
 		TerminationWaiter::wait();
 	}
+
+	std::wstring s2ws(const std::string& s)
+	{
+		std::wstring temp(s.length(), L' ');
+		std::copy(s.begin(), s.end(), temp.begin());
+		return temp;
+	}
 }
