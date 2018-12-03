@@ -1,5 +1,6 @@
 ﻿#include "TransferRouter.h"
 #include "../BL/BusinessLogic.h"
+#include "../Errors/IError.h"
 
 void TransferRouter::_handlePatch(const request_t& req) const
 {
@@ -22,7 +23,16 @@ void TransferRouter::_handlePatch(const request_t& req) const
 			return;
 		}
 
-		// TODO: pass body to something that will process it and get real response
+		const auto maybeError = tryTransfer(
+			body.at(U("to")).as_string(), body.at(U("from")).as_string(), body.at(U("amount")).as_string()
+		);
+
+		if (maybeError.has_value()) // is error
+		{
+			resp[U("reason")] = value {maybeError.value()->reason()};
+			req.reply(maybeError.value()->code(), resp);
+			return;
+		}
 
 		req.reply(status_codes::OK);
 	});

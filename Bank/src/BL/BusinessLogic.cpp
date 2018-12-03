@@ -87,5 +87,39 @@ auto tryChangeBalance(const utility::string_t& number, const utility::string_t& 
 auto tryTransfer(const utility::string_t& from, const utility::string_t& to, const utility::string_t& amount)
  -> std::optional<std::unique_ptr<IError>>
 {
+	if (!details::isCorrectNumber(from))
+		return std::make_unique<InvalidArgument>(U("from"));
+
+	if (!details::isCorrectNumber(to))
+		return std::make_unique<InvalidArgument>(U("to"));
+
+	const auto maybeAmount = util::tryParseNumber(amount);
+
+	if (!maybeAmount.has_value() || maybeAmount.value() < 1)
+		return std::make_unique<InvalidArgument>(U("amount"));
+
+	try
+	{
+		//const auto maybeFrom = getCard(from);
+
+		//if (!maybeFrom.has_value())
+			//return std::make_unique<NotFound>(U("from"));
+
+		//const auto maybeTo = getCard(to);
+
+		//if (!maybeTo.has_value())
+			//return std::make_unique<NotFound>(U("to"));
+
+		// makeTransfer(maybeFrom.value(), maybeTo.value(), maybeAmount.value());
+	}
+	catch (const std::exception&)
+	{
+		return std::make_unique<InternalError>(U("db"));
+	}
+	catch (...)
+	{
+		return std::make_unique<InternalError>(U("server"));
+	}
+
 	return {};
 }
