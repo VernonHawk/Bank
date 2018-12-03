@@ -1,4 +1,5 @@
 ﻿#include "BalanceRouter.h"
+#include "../BL/BusinessLogic.h"
 #include "../Utility/UtilityFunctions.h"
 
 void BalanceRouter::_handleGet(const request_t& req) const
