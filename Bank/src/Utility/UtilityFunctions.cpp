@@ -48,4 +48,10 @@ namespace util
 		std::copy(s.begin(), s.end(), temp.begin());
 		return temp;
 	}
+
+	std::string sw2s(const std::wstring& s) {
+		std::string temp(s.length(), ' ');
+		std::copy(s.begin(), s.end(), temp.begin());
+		return temp;
+	}
 }
