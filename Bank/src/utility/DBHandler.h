@@ -2,6 +2,7 @@
 #include <mysql.h>
 #include <string>
 #include <iostream>
+#include <ctime>
 
 class DBHandler
 {
@@ -19,7 +20,7 @@ private:
 	bool checkFormatNumber(std::string);
 	bool checkFormatPIN(std::string);
 public:
-	class ErrorConnection {
+	class ErrorConnection : public std::exception{
 	private:
 		std::string _message;
 		size_t _code;
@@ -29,6 +30,10 @@ public:
 		~ErrorConnection() {};
 		void printMessage() {
 			std::cerr << _message << "; code: " << _code << std::endl;
+		}
+		const char * what() const throw ()
+		{
+			return (_message + "; code: " + std::to_string(_code)).c_str();
 		}
 	};
 
@@ -41,7 +46,7 @@ public:
 
 	void addUser(const std::string& name, const std::string& surname);
 	void addAccount(unsigned int user_id, std::string number, std::string PIN);
-	//void addTransaction(unsigned int from_id, unsigned int to_id, double amount, time_t date);
+	//void addTransaction(unsigned int from_id, unsigned int to_id, double amount, time_t  t = time(0));
 	//void deleteAccount(unsigned int id);
 
 

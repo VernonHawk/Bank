@@ -1,6 +1,5 @@
 #include "DBHandler.h"
 #include <algorithm>
-#include <ctime>
 
 
 DBHandler* DBHandler::handler = 0;
@@ -45,6 +44,25 @@ void DBHandler::addAccount(unsigned int user_id, std::string number, std::string
 	if (mysql_errno(&mysql)) throw ErrorConnection(&mysql);
 }
 
+
+//void DBHandler::addTransaction(unsigned int from_id, unsigned int to_id, double amount, time_t  t) {
+//	connect();
+//
+//	std::tm* time = std::localtime(&t);
+//
+//	mysql_real_query(&mysql, "BEGIN", 6);
+//	std::string q = "INSERT INTO accounts SET fromId = \"" + std::to_string(from_id) + "\", toId = \""
+//		+ std::to_string(to_id) + "\", amount = \"" + std::to_string(amount) + "\",date = \"" 
+//		+ std::to_string(time->tm_year + 1900) + '-' + std::to_string(time->tm_mon + 1) + '-' 
+//		+ std::to_string(time->tm_mday) + ' '+ std::to_string(time->tm_hour) + ':' + std::to_string(time->tm_min)
+//		+ ':' + std::to_string(time->tm_sec);
+//	std::cout << q << std::endl;
+//	mysql_query(&mysql, q.c_str());
+//	//commit transaction
+//	mysql_real_query(&mysql, "COMMIT", 6);
+//
+//	if (mysql_errno(&mysql)) throw ErrorConnection(&mysql);
+//}
 
 DBHandler::~DBHandler() {
 	mysql_close(&mysql);
