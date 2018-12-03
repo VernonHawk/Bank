@@ -1,5 +1,6 @@
 ﻿#include "UserRouter.h"
 #include "../Utility/UtilityFunctions.h"
+#include "../BL/BusinessLogic.h"
 
 void UserRouter::_handlePost(const request_t& req) const
 {
@@ -26,15 +27,15 @@ void UserRouter::_handlePost(const request_t& req) const
 
 			if (!correct)
 			{
-				  resp[U("reason")] = value {reason};
-				  req.reply(status_codes::BadRequest, resp);
-				  return;
-		  }
+			    resp[U("reason")] = value {reason};
+			    req.reply(status_codes::BadRequest, resp);
+			    return;
+		    }
 
-		  // TODO: pass body to something that will process it and get real response
+		    // TODO: pass body to something that will process it and get real response
 
 			const auto code = status_codes::OK; // TODO: get real code
 			
-		  req.reply(code, resp);
+		    req.reply(code, resp);
 	   });
 }
