@@ -19,6 +19,10 @@ auto tryGetBalance(const utility::string_t& number) -> std::variant<double, std:
 auto tryChangeBalance(const utility::string_t& number, const utility::string_t& amount)
 	-> std::optional<std::unique_ptr<IError>>;
 
+[[nodiscard]]
+auto tryTransfer(const utility::string_t& from, const utility::string_t& to, const utility::string_t& amount)
+	-> std::optional<std::unique_ptr<IError>>;
+
 namespace details
 {
 	[[nodiscard]] inline
