@@ -2,6 +2,7 @@
 #include "../BL/BusinessLogic.h"
 #include "../Errors/IError.h"
 #include "../Utility/UtilityFunctions.h"
+#include "../Errors/IError.h"
 
 void BalanceRouter::_handleGet(const request_t& req) const
 {
@@ -58,10 +59,17 @@ void BalanceRouter::_handlePatch(const request_t& req) const
 				return;
 			}
 
-			// TODO: pass body to something that will process it and get real response
+			const auto maybeError = tryChangeBalance(
+				body.at(U("number")).as_string(), body.at(U("amount")).as_string()
+			);
 
-			const auto code = status_codes::OK; // TODO: get real code
+			if (maybeError.has_value()) // is error
+			{
+				resp[U("reason")] = value {maybeError.value()->reason()};
+				req.reply(maybeError.value()->code(), resp);
+				return;
+			}
 
-			req.reply(code, resp);
+			req.reply(status_codes::OK);
 	   });
 }

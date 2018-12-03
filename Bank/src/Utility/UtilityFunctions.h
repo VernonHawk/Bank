@@ -4,9 +4,13 @@
 #include "../Controller.h"
 #include <cpprest/base_uri.h>
 #include <cpprest/http_msg.h>
+#include <optional>
 
 namespace util
 {
+	[[nodiscard]]
+	auto tryParseNumber(const utility::string_t&) -> std::optional<double>;
+
 	[[nodiscard]] inline 
 	auto parseRequestPath(const web::http::http_request& req)
 	{

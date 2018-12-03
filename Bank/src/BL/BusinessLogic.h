@@ -15,6 +15,10 @@ auto tryAuthorize(const utility::string_t& number, const utility::string_t& pin)
 [[nodiscard]]
 auto tryGetBalance(const utility::string_t& number) -> std::variant<double, std::unique_ptr<IError>>;
 
+[[nodiscard]]
+auto tryChangeBalance(const utility::string_t& number, const utility::string_t& amount)
+	-> std::optional<std::unique_ptr<IError>>;
+
 namespace details
 {
 	[[nodiscard]] inline
