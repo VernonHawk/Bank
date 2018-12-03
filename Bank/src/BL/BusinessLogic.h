@@ -10,6 +10,10 @@ class IError;
 auto tryAuthorize(const utility::string_t& number, const utility::string_t& pin)
 	-> std::optional<std::unique_ptr<IError>>;
 
+[[nodiscard]]
+auto tryChangeBalance(const utility::string_t& number, const utility::string_t& amount)
+	-> std::optional<std::unique_ptr<IError>>;
+
 namespace details
 {
 	[[nodiscard]] inline

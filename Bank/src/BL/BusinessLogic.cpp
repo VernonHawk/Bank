@@ -3,7 +3,8 @@
 #include "../Errors/InvalidArgument.h"
 //#include "../Errors/NotFound.h"
 //#include "../Errors/CantAuthorize.h"
-#include "../Models/Card.h"
+//#include "../Models/Card.h"
+#include "../Utility/UtilityFunctions.h"
 #include <optional>
 
 auto tryAuthorize(const utility::string_t& number, const utility::string_t& pin) 
@@ -48,3 +49,36 @@ auto tryAuthorize(const utility::string_t& number, const utility::string_t& pin)
 	return {};
 }
 
+auto tryChangeBalance(const utility::string_t& number, const utility::string_t& amount)
+	-> std::optional<std::unique_ptr<IError>>
+{
+	if (!details::isCorrectNumber(number))
+		return std::make_unique<InvalidArgument>(U("number"));
+
+	const auto maybeAmount = util::tryParseNumber(amount);
+
+	if (!maybeAmount.has_value())
+		return std::make_unique<InvalidArgument>(U("amount"));
+
+	try
+	{
+		//const auto maybeCard = getCard(number);
+
+		//if (!maybeCard.has_value())
+			//return std::make_unique<NotFound>(U("number"));
+
+		// card.addToBalance(maybeAmount.value());
+
+		// updateCard(card);
+	}
+	catch (const std::exception&)
+	{
+		return std::make_unique<InternalError>(U("db"));
+	}
+	catch (...)
+	{
+		return std::make_unique<InternalError>(U("server"));
+	}
+
+	return {};
+}

@@ -143,7 +143,6 @@
     <ClCompile Include="src\Controller.cpp" />
     <ClCompile Include="src\Cryptography\SaltGenerator.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Models\Card.cpp" />
     <ClCompile Include="src\Routers\IRouter.cpp" />
     <ClCompile Include="src\Routers\BalanceRouter.cpp" />
     <ClCompile Include="src\Routers\UserRouter.cpp" />

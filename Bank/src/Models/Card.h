@@ -1,7 +1,7 @@
 ﻿#ifndef CARD_H
 #define CARD_H
 
-#include "../Utility/UtilityFunctions.h"
+#include <cpprest/asyncrt_utils.h>
 #include <utility>
 
 class Card
@@ -9,7 +9,7 @@ class Card
 	using u_string_t = utility::string_t;
 
 public:
-	constexpr static size_t maxAuthTries = 3;
+	constexpr static size_t maxAuthTries = 2;
 
 	Card(
 		const size_t id, const size_t userId, 
