@@ -2,7 +2,7 @@
 #include "../BL/BusinessLogic.h"
 #include "../Errors/IError.h"
 
-void TransferRouter::_handlePatch(const request_t& req) const
+void TransferRouter::_handlePost(const request_t& req) const
 {
 	using web::http::status_codes;
 	using web::json::value;

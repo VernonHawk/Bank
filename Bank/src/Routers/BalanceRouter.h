@@ -10,8 +10,8 @@ public:
 
 private:
 	void _handleGet	  (const request_t& req) const override;
-	void _handlePost  (const request_t& req) const override { handleNotAllowed(req); }
-	void _handlePatch (const request_t& req) const override;
+	void _handlePost  (const request_t& req) const override ;
+	void _handlePatch (const request_t& req) const override { handleNotAllowed(req); }
 	void _handleDelete(const request_t& req) const override { handleNotAllowed(req); }
 };
 

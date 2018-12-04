@@ -38,7 +38,7 @@ void BalanceRouter::_handleGet(const request_t& req) const
 	}
 }
 
-void BalanceRouter::_handlePatch(const request_t& req) const
+void BalanceRouter::_handlePost(const request_t& req) const
 {
 	using web::http::status_codes;
 	using web::json::value;
